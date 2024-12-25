@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Flagged</title>
+</head>
+<body>
+    <div class="container" id="main">
+        <h1>Users</h1>
+        {% if data.flagged %}
+        <h2>Flagged</h2>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Username</th>
+                <th scope="col">Usertype</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            {% for u in data.flagged %}
+              <tr>
+                <th scope="row">{{ u.id }}</th>
+                <td>{{ u.name }}</td>
+                <td>{{ u.type }}</td>
+                <td>
+                    <form action="{{ url_for('flaglist') }}" method="POST">
+                        <input type="hidden" name="id" value="{{ u.id }}">
+                        <input type="hidden" name="action" value="unflag">
+                        <button type="submit" class="btn btn-success float-right">Unflag</button>
+                    </form>
+                </td>
+              </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+
+
+        {% if data.infs or data.spons %}
+        <h2>Safe</h2>
+        {% if data.spons %}
+        <h3>Sponsors</h3>
+        {% for s in data.spons %}
+        <div class="row  border">
+            <div class="row">
+                <div class="col">ID:{{ s.id }}</div>
+                <div class="col">Username:{{ s.name }}</div>
+                <div class="col">
+                    <form action="{{ url_for('flaglist') }}" method="POST">
+                        <input type="hidden" name="id" value="{{ s.id }}">
+                        <input type="hidden" name="action" value="flag">
+                        <button type="submit" class="btn btn-danger float-right">flag</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">{{ s.about }}</div>
+            </div>
+        </div>
+        <br>
+        {% endfor %}
+        {% endif %}
+
+        {% if data.infs %}
+        <h3>Influencers</h3>
+        {% for i in data.infs %}
+        <div class="row  border">
+            <div class="row">
+                <div class="col">ID:{{ i.id }}</div>
+                <div class="col">Username:{{ i.name }}</div>
+                <div class="col">
+                    <form action="{{ url_for('flaglist') }}" method="POST">
+                        <input type="hidden" name="id" value="{{ i.id }}">
+                        <input type="hidden" name="action" value="flag">
+                        <button type="submit" class="btn btn-danger float-right">flag</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">{{ i.about }}</div>
+            </div>
+        </div>
+        <br>
+        {% endfor %}
+        {% endif %}
+
+        {% endif %}
+        <br><br>
+        <div class="row">
+            <div class="col text-end">Go <a href="{{ url_for('admin') }}">back</a></div>
+        </div>
+
+    </div>
+</body>
+</html>

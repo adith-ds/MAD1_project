@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Edit</title>
+</head>
+<body>
+    <div class="container" id="main">
+        <h1>Edit profile</h1>
+        <br>
+        <form action="{{ url_for('editprof', iid=inf.id) }}" method="post">
+            <div class="row">
+                <div class="col">
+                <label for="alias" class="form-label">Online alias</label>
+                <input type="text" class="form-control" placeholder="Alias" id="alias" name="alias" value="{{ inf.i_name }}">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-select" id="category" name="category">
+                        <option value="{{ inf.i_category }}" selected>{{ inf.i_category }}</option>
+                        <option value="sports">Sports</option>
+                        <option value="fashion">Fashion</option>
+                        <option value="travel">Travel</option>
+                        <option value="gym">Gym</option>
+                        <option value="gaming">Gaming</option>
+                    </select>
+                </div>
+                <div class="col"></div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <label for="niche" class="form-label">Niche</label> 
+                    <input type="text" class="form-control" id="niche" name="niche" value="{{ inf.i_niche }}">   
+                </div>
+                <div class="col">
+                    <label for="reach" class="form-label">Reach</label>
+                    <select class="form-select" id="reach" name="reach">
+                        <option value="{{ inf.i_reach }}" selected>{{ inf.i_reach }}</option>
+                        <option value="5000" label="5,000"></option>
+                        <option value="50000" label="50,000"></option>
+                        <option value="200000" label="200,000"></option>
+                        <option value="500000" label="500,000"></option>
+                        <option value="1000000" label="1M"></option>
+                        <option value="5000000" label="5M"></option>
+                        <option value="10000000" label="10M+"></option>
+                    </select>
+                </div>   
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <label for="about" class="form-label">About</label>
+                    <textarea class="form-control" id="about" name="about" rows="3">{{ inf.i_about }}</textarea>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col text-end">
+                    <button type="submit" class="btn btn-success float-right">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>

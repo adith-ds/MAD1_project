@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Create</title>
+    <style>
+        .error-message {
+          color: red;
+          display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main">
+        <h1>Fill in campaign details</h1>
+        <form id="cform" action="{{ url_for('create_campaign', spon_name = sname) }}" method="POST">
+            <div class="row">
+                <div class="col">
+                    <label for="name" class="form-label">Name (the name associated with this campaign)</label>
+                    <input type="text" class="form-control" placeholder="Name" id="name" name="name" required>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <label for="desc" class="form-label">Description (a short description of the campaign)</label>
+                    <textarea class="form-control" id="desc" name="desc" rows="3" required></textarea>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <label for="sdate" class="form-label">Start date</label>
+                    <input type="date" class="form-control" id="sdate" name="sdate" required>
+                </div>
+                <div class="col">
+                    <label for="edate" class="form-label">End date</label>
+                    <input type="date" class="form-control" id="edate" name="edate" required>
+                    <div id="dateError" class="error-message">End date must be after start date.</div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <label for="budget" class="form-label">Budget (Approximate budget for this campaign)</label>
+                    <input type="number" class="form-control" id="budget" min="1" name="budget" step="1" required>
+                </div>
+                <div class="col">
+                    <label for="goals" class="form-label">Goals (what this campain aims to achieve)</label>
+                    <input type="text" class="form-control" placeholder="e.g. sales, reputation, publicity" id="goals" name="goals" required>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col">
+                    <button type="submit" class="btn btn-success float-right">Create</button>
+                </div>
+            </div>
+            <input type="hidden" name="sname" value="{{ sname }}">
+        </form>
+    </div>
+    <script>
+        document.getElementById('cform').addEventListener('submit', function(event) {
+          const startDate = document.getElementById('sdate').value;
+          const endDate = document.getElementById('edate').value;
+          const dateError = document.getElementById('dateError');
+    
+          if (new Date(endDate) <= new Date(startDate)) {
+            event.preventDefault();
+            dateError.style.display = 'block';
+          } else {
+            dateError.style.display = 'none';
+          }
+        });
+    
+        document.getElementById('sdate').addEventListener('change', function() {
+          const startDate = this.value;
+          const endDateInput = document.getElementById('edate');
+          endDateInput.setAttribute('min', startDate);
+        });
+    
+        document.getElementById('edate').addEventListener('change', function() {
+          const endDate = this.value;
+          const startDateInput = document.getElementById('sdate');
+          if (new Date(endDate) <= new Date(startDateInput.value)) {
+            document.getElementById('dateError').style.display = 'block';
+          } else {
+            document.getElementById('dateError').style.display = 'none';
+          }
+        });
+      </script>
+
+</body>
+</html>

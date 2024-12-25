@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Admin</title>
+</head>
+<body>
+    <div class="container" id="main">
+        <h2>Admin page</h2>
+        <h3>Statistics</h3>
+        <div class="row border">
+            <div class="row">
+                <div class="col">
+                    <h4>Total influeners:{{ data.inf.total }}</h4>
+                </div>
+            </div>
+            <br>
+            <table class="table table-dark table-hover">
+                <tr>
+                    <th scope="col">Sports</th>
+                    <th scope="col">Fashion</th>
+                    <th scope="col">Travel</th>
+                    <th scope="col">Gym</th>
+                    <th scope="col">Gaming</th>
+                </tr>
+                <tr>
+                    <td>{{ data.inf.s }}</td>
+                    <td>{{ data.inf.f }}</td>
+                    <td>{{ data.inf.t }}</td>
+                    <td>{{ data.inf.g }}</td>
+                    <td>{{ data.inf.ga }}</td>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <div class="row border">
+            <div class="row">
+                <div class="col">
+                    <h4>Total Campaigns:{{ data.camp.total }}</h4>
+                </div>
+            </div>
+            <br>
+            <table class="table table-dark table-hover">
+                <tr>
+                    <th scope="col">Low budget (&#60;1000)</th>
+                    <th scope="col">High budget (1000+)</th>
+                </tr>
+                <tr>
+                    <td>{{ data.camp.l }}</td>
+                    <td>{{ data.camp.h }}</td>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <div class="row border">
+            <div class="row">
+                <div class="col">
+                    <h4>Total Ad requests:{{ data.adreq.total }}</h4>
+                </div>
+            </div>
+            <br>
+            <table class="table table-dark table-hover">
+                <tr>
+                    <th scope="col">Accepted</th>
+                    <th scope="col">Negotiating</th>
+                    <th scope="col">Sponsor rejected</th>
+                    <th scope="col">Influencer rejected</th>
+                </tr>
+                <tr>
+                    <td>{{ data.adreq.a }}</td>
+                    <td>{{ data.adreq.n }}</td>
+                    <td>{{ data.adreq.rs }}</td>
+                    <td>{{ data.adreq.ri }}</td>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <a href="{{ url_for('display_list', type='sponsor') }}" class="btn btn-warning">View sponsors</a>
+            </div>
+            <div class="col">
+                <a href="{{ url_for('display_list', type='influencer') }}" class="btn btn-primary">View influencers</a>
+            </div>
+            <div class="col">
+                <a href="{{ url_for('display_list', type='campaign') }}" class="btn btn-success">View campaigns</a>
+            </div>
+            <div class="col">
+                <a href="{{ url_for('display_list', type='adreq') }}" class="btn btn-danger">View ad requests</a>
+            </div>
+        </div>
+        <br><br>
+        <a href="{{ url_for('flaglist') }}">Flagged</a> users 
+        <br>
+        <br>
+        <a href="{{ url_for('home') }}">Logout</a>
+
+
+    </div>
+</body>
+</html>
